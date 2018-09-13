@@ -26,18 +26,21 @@ namespace ThinkingLikeAProgrammerExercisesChapter3
         {
             var code = alphabet.ToCharArray();
             var random = new Random();
-            for (int i = 0; i < 1000; i++)
+            for (int index1 = 0; index1 < alphabet.Length; index1++)
             {
-                var randomIndex1 = random.Next(0, alphabet.Length);
-                var randomChar1 = code[randomIndex1];
-                var avoidIndex1 = alphabet.IndexOf(randomChar1);
-                var randomIndex2 = random.Next(0, alphabet.Length - 1);
-                if (randomIndex2 >= avoidIndex1) randomIndex2++;
-                var randomChar2 = code[randomIndex2];
-                var avoidIndex2 = alphabet.IndexOf(randomChar2);
-                if (avoidIndex2 == randomIndex1) continue;
-                var tmp = code[randomIndex1];
-                code[randomIndex1] = code[randomIndex2];
+                int randomIndex2;
+                int avoidIndex2;
+                do
+                {
+                    var randomChar1 = code[index1];
+                    var avoidIndex1 = alphabet.IndexOf(randomChar1);
+                    randomIndex2 = random.Next(0, alphabet.Length - 1);
+                    if (randomIndex2 >= avoidIndex1) randomIndex2++;
+                    var randomChar2 = code[randomIndex2];
+                    avoidIndex2 = alphabet.IndexOf(randomChar2);
+                } while (avoidIndex2 == index1);
+                var tmp = code[index1];
+                code[index1] = code[randomIndex2];
                 code[randomIndex2] = tmp;
             }
 
