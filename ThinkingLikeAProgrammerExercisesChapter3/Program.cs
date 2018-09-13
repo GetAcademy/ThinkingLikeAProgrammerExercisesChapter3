@@ -10,17 +10,46 @@ namespace ThinkingLikeAProgrammerExercisesChapter3
     {
         static void Main(string[] args)
         {
-            bool encrypt = args[0] == "e";
-            Exercise4(encrypt, args[1]);
+            Exercise6();
+            //Exercise4and5(args[0] == "e", args[1]);
             //Exercise3();
         }
 
-        private static void Exercise4(bool encrypt, string plaintext)
+        private static void Exercise6()
+        {
+            var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
+            var code = CreateCode(alphabet);
+            Console.WriteLine(code);
+        }
+
+        private static string CreateCode(string alphabet)
+        {
+            var code = alphabet.ToCharArray();
+            var random = new Random();
+            for (int i = 0; i < 1000; i++)
+            {
+                var randomIndex1 = random.Next(0, alphabet.Length);
+                var randomChar1 = code[randomIndex1];
+                var avoidIndex1 = alphabet.IndexOf(randomChar1);
+                var randomIndex2 = random.Next(0, alphabet.Length - 1);
+                if (randomIndex2 >= avoidIndex1) randomIndex2++;
+                var randomChar2 = code[randomIndex2];
+                var avoidIndex2 = alphabet.IndexOf(randomChar2);
+                if (avoidIndex2 == randomIndex1) continue;
+                var tmp = code[randomIndex1];
+                code[randomIndex1] = code[randomIndex2];
+                code[randomIndex2] = tmp;
+            }
+
+            return new string(code);
+        }
+
+        private static void Exercise4and5(bool encrypt, string plaintext)
         {
             var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
             var code = "QWERTYUIOPÅÆØLKJHGFDSAZXCVBNM";
-            var ciphertext = Encrypt(plaintext, 
-                encrypt ? alphabet : code, 
+            var ciphertext = Encrypt(plaintext,
+                encrypt ? alphabet : code,
                 encrypt ? code : alphabet);
             Console.WriteLine(ciphertext);
             //plaintext = Decrypt(ciphertext);
