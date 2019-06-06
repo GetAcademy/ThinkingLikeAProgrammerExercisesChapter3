@@ -10,9 +10,9 @@ namespace ThinkingLikeAProgrammerExercisesChapter3
     {
         static void Main(string[] args)
         {
-            Exercise6();
+            //Exercise6();
             //Exercise4and5(args[0] == "e", args[1]);
-            //Exercise3();
+            Exercise3();
         }
 
         private static void Exercise6()
@@ -93,7 +93,7 @@ namespace ThinkingLikeAProgrammerExercisesChapter3
 
         private static bool IsSorted(int[] numbers)
         {
-            for (int i = 0; i < numbers.Length; i++)
+            for (int i = 1; i < numbers.Length; i++)
             {
                 if (numbers[i] < numbers[i - 1]) return false;
             }
